@@ -50,5 +50,5 @@ class Board:
             self.white_pieces.append(Queen)
             self.black_pieces.append(Queen)
 
-        print(self.white_pieces)
-        print(self.black_pieces)
+        print("There is", len(self.white_pieces), "white pieces in the list.")
+        print("There is", len(self.black_pieces), "black pieces in the list.")
