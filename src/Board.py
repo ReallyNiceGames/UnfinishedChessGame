@@ -1,4 +1,4 @@
-from src.Pieces import Knight, Pawn, Rook, Queen, King, Bishop
+from Pieces import Knight, Pawn, Rook, Queen, King, Bishop
 
 
 class Board:
@@ -52,3 +52,11 @@ class Board:
 
         print("There is", len(self.white_pieces), "white pieces in the list.")
         print("There is", len(self.black_pieces), "black pieces in the list.")
+
+    def start_game(self):
+
+        print("Starting game...")
+
+        # while game is going, loop
+
+        return 0

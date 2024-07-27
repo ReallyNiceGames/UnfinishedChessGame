@@ -1,4 +1,4 @@
-from src import Board
+from Board import *
 
 
 def print_hi(name):
@@ -10,8 +10,11 @@ def print_hi(name):
 if __name__ == '__main__':
     print_hi('PyCharm')
 
-    board = Board
-    board.Board()
+    new_board = Board()
 
+    game_state = 1
+    while game_state == 1:
+
+        game_state = new_board.start_game()
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
