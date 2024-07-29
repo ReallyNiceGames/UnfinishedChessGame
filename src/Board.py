@@ -16,8 +16,19 @@ class Board:
 
         self.white_pieces = []
         self.black_pieces = []
+        self.board_layout = []
+
+        self.default_layout = [["[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]"],
+                             ["[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]"],
+                             ["[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]"],
+                             ["[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]"],
+                             ["[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]"],
+                             ["[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]"],
+                             ["[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]"],
+                             ["[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]"]]
 
         self.reset_board()
+
 
     def reset_board(self):
         print("Resetting board...")
@@ -25,6 +36,7 @@ class Board:
 
         self.white_pieces.clear()
         self.black_pieces.clear()
+        self.board_layout = self.default_layout
 
         for x in range(self.maxPawns):
             self.white_pieces.append(Pawn)
@@ -52,6 +64,12 @@ class Board:
 
         print("There is", len(self.white_pieces), "white pieces in the list.")
         print("There is", len(self.black_pieces), "black pieces in the list.")
+
+        for x in range(len(self.board_layout)):
+            for y in range(len(self.board_layout[x])):
+                print(self.board_layout[x][y], end="")
+            print()
+
 
     def start_game(self):
 
