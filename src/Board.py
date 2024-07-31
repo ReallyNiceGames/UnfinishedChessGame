@@ -45,34 +45,69 @@ class Board:
         self.black_pieces.clear()
         self.board_layout = self.default_layout
 
+        y = 0
         for x in range(self.max_pawns):
-            self.white_pieces.append(Pawn())
-            self.black_pieces.append(Pawn())
+            self.white_pieces.append(Pawn(0))
+            self.board_layout[1][0 + y] = "[P]"
+            self.black_pieces.append(Pawn(1))
+            self.board_layout[6][0 + y] = "[p]"
+            y += 1
 
         for x in range(self.max_knights):
-            self.white_pieces.append(Knight())
-            self.black_pieces.append(Knight())
+            self.white_pieces.append(Knight(0))
+            if self.board_layout[0][1] != "[H]":
+                self.board_layout[0][1] = "[H]"
+            else:
+                self.board_layout[0][6] = "[H]"
+
+            self.black_pieces.append(Knight(1))
+            if self.board_layout[7][1] != "[h]":
+                self.board_layout[7][1] = "[h]"
+            else:
+                self.board_layout[7][6] = "[h]"
 
         for x in range(self.max_bishops):
-            self.white_pieces.append(Bishop())
-            self.black_pieces.append(Bishop())
+            self.white_pieces.append(Bishop(0))
+            if self.board_layout[0][2] != "[B]":
+                self.board_layout[0][2] = "[B]"
+            else:
+                self.board_layout[0][5] = "[B]"
+
+            self.black_pieces.append(Bishop(1))
+            if self.board_layout[7][2] != "[b]":
+                self.board_layout[7][2] = "[b]"
+            else:
+                self.board_layout[7][5] = "[b]"
 
         for x in range(self.max_rooks):
-            self.white_pieces.append(Rook())
-            self.black_pieces.append(Rook())
+            self.white_pieces.append(Rook(0))
+            if self.board_layout[0][0] != "[R]":
+                self.board_layout[0][0] = "[R]"
+            else:
+                self.board_layout[0][7] = "[R]"
+
+            self.black_pieces.append(Rook(1))
+            if self.board_layout[7][0] != "[r]":
+                self.board_layout[7][0] = "[r]"
+            else:
+                self.board_layout[7][7] = "[r]"
 
         for x in range(self.max_kings):
-            self.white_pieces.append(King())
-            self.black_pieces.append(King())
+            self.white_pieces.append(King(0))
+            self.board_layout[0][4] = "[K]"
+
+            self.black_pieces.append(King(1))
+            self.board_layout[7][4] = "[k]"
 
         for x in range(self.max_queens):
-            self.white_pieces.append(Queen())
-            self.black_pieces.append(Queen())
+            self.white_pieces.append(Queen(0))
+            self.board_layout[0][3] = "[Q]"
+
+            self.black_pieces.append(Queen(1))
+            self.board_layout[7][3] = "[q]"
 
         print("There is", len(self.white_pieces), "white pieces in the list.")
         print("There is", len(self.black_pieces), "black pieces in the list.")
-
-
 
         for x in range(len(self.board_layout)):
             for y in range(len(self.board_layout[x])):
@@ -100,8 +135,11 @@ class Board:
 
         print("Starting game...")
 
-        self.white_pieces[0].move_piece()
-        #print(self.white_pieces[0].pos_x)
+        #self.white_pieces[0].move_piece()
+        #print(self.white_pieces[0].get_pos_x())
+
+        #print(self.white_pieces[0].colour)
+        #print(self.black_pieces[0].colour)
 
         # while game is going, loop
 
