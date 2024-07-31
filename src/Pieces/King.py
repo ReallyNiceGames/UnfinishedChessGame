@@ -1,10 +1,12 @@
-from src.Pieces.Piece import Piece
+from src.Pieces.Piece import *
 
 
 class King(Piece):
 
     def __init__(self):
 
-        #add variables here
-
         print("This is a king!")
+
+        # add variables here
+
+        self.board_ID = "[K]"

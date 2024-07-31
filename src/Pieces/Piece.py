@@ -4,6 +4,9 @@ class Piece:
         print("This is an undefined piece!")
         # add variables
 
+        self.pos_x = 0
+        self.pos_y = 0
+
     def move_piece(self):
         print("Moving piece...")
 

@@ -1,4 +1,4 @@
-from src.Pieces.Piece import Piece
+from src.Pieces.Piece import *
 
 
 class Rook(Piece):
@@ -7,4 +7,6 @@ class Rook(Piece):
 
         print("This is a rook!")
 
-        #add variables here
+        # add variables here
+
+        self.board_ID = "[R]"

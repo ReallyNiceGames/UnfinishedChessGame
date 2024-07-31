@@ -1,4 +1,4 @@
-from src.Pieces.Piece import Piece
+from src.Pieces.Piece import *
 
 
 class Knight(Piece):
@@ -7,4 +7,7 @@ class Knight(Piece):
 
         print("This is a knight!")
 
-        #add variables here
+        # add variables here
+
+        self.board_ID = "[H]"
+
