@@ -4,6 +4,7 @@ from Pieces.Bishop import *
 from Pieces.Rook import *
 from Pieces.Queen import *
 from Pieces.King import *
+import os
 
 
 class Board:
@@ -109,16 +110,26 @@ class Board:
         print("There is", len(self.white_pieces), "white pieces in the list.")
         print("There is", len(self.black_pieces), "black pieces in the list.")
 
-        for x in range(len(self.board_layout)):
-            for y in range(len(self.board_layout[x])):
-                print(self.board_layout[x][y], end="")
-            print()
-
-        #self.update_board()
+        self.update_board()
 
     def update_board(self):
 
         print("Updating board layout...")
+
+        # re-displays the board
+
+        if self.turn == 0:
+            print("Flipping to White PoV")
+            for x in range(len(self.board_layout)):
+                for y in range(len(self.board_layout[x])):
+                    print(self.board_layout[(len(self.board_layout) - 1) - x][(len(self.board_layout) - 1) - y], end="")
+                print()
+        else:
+            print("Flipping to Black PoV")
+            for x in range(len(self.board_layout)):
+                for y in range(len(self.board_layout[x])):
+                    print(self.board_layout[x][y], end="")
+                print()
 
     def take_turn(self):
 
@@ -131,15 +142,30 @@ class Board:
             print("It's black's turn!")
             self.turn = 0
 
+        self.update_board()
+
+    def flip_board(self):
+
+        print("Rotating the board 180 degrees...")
+
+        # Flips the board perspective by 180 degrees
+
     def start_game(self):
 
-        print("Starting game...")
+        #print("Starting game...")
 
         #self.white_pieces[0].move_piece()
         #print(self.white_pieces[0].get_pos_x())
 
         #print(self.white_pieces[0].colour)
         #print(self.black_pieces[0].colour)
+
+        while True:
+            user_input = input("Who's turn is it? Input: ")
+            #os.system('clear')
+            self.take_turn()
+            if user_input == "exit":
+                break
 
         # while game is going, loop
 
