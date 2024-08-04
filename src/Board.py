@@ -20,7 +20,7 @@ class Board:
         self.max_queens = 1
         self.max_kings = 1
 
-        self.turn = 0
+        self.white_turn = True
 
         self.white_pieces = []
         self.black_pieces = []
@@ -46,26 +46,24 @@ class Board:
         self.black_pieces.clear()
         self.board_layout = self.default_layout
 
-        y = 0
         for x in range(self.max_pawns):
             self.white_pieces.append(Pawn(0))
-            self.board_layout[1][0 + y] = "[P]"
+            self.board_layout[1][0 + x] = "[P]"
             self.black_pieces.append(Pawn(1))
-            self.board_layout[6][0 + y] = "[p]"
-            y += 1
+            self.board_layout[6][0 + x] = "[p]"
 
         for x in range(self.max_knights):
             self.white_pieces.append(Knight(0))
-            if self.board_layout[0][1] != "[H]":
-                self.board_layout[0][1] = "[H]"
+            if self.board_layout[0][1] != "[N]":
+                self.board_layout[0][1] = "[N]"
             else:
-                self.board_layout[0][6] = "[H]"
+                self.board_layout[0][6] = "[N]"
 
             self.black_pieces.append(Knight(1))
-            if self.board_layout[7][1] != "[h]":
-                self.board_layout[7][1] = "[h]"
+            if self.board_layout[7][1] != "[n]":
+                self.board_layout[7][1] = "[n]"
             else:
-                self.board_layout[7][6] = "[h]"
+                self.board_layout[7][6] = "[n]"
 
         for x in range(self.max_bishops):
             self.white_pieces.append(Bishop(0))
@@ -118,7 +116,7 @@ class Board:
 
         # re-displays the board
 
-        if self.turn == 0:
+        if self.white_turn:
             print("Flipping to White PoV")
             for x in range(len(self.board_layout)):
                 for y in range(len(self.board_layout[x])):
@@ -131,42 +129,40 @@ class Board:
                     print(self.board_layout[x][y], end="")
                 print()
 
-    def take_turn(self):
+    def change_turn(self):
 
         print("Deciding who's turn it is...")
 
-        if self.turn == 0:
+        # swapping the turn
+        self.white_turn = not self.white_turn
+
+        if self.white_turn:
             print("It's white's turn!")
-            self.turn = 1
         else:
             print("It's black's turn!")
-            self.turn = 0
 
         self.update_board()
 
-    def flip_board(self):
+    def make_move(self, user_input):
 
-        print("Rotating the board 180 degrees...")
+        print("Moving based on input...")
 
-        # Flips the board perspective by 180 degrees
+        #inputs should be 4 letters/numbers, for example: b1c4
+
+        #take the code, break it down, find the piece on the initial space and activate its move function
+        #send the move function the 2 last bits of the code to determine where it goes (if possible)
 
     def start_game(self):
 
-        #print("Starting game...")
-
-        #self.white_pieces[0].move_piece()
-        #print(self.white_pieces[0].get_pos_x())
-
-        #print(self.white_pieces[0].colour)
-        #print(self.black_pieces[0].colour)
-
+        # while game is going, loop
         while True:
-            user_input = input("Who's turn is it? Input: ")
-            #os.system('clear')
-            self.take_turn()
+            user_input = input("Please input a move. Input: ")
+
             if user_input == "exit":
                 break
-
-        # while game is going, loop
+            elif user_input == "help":
+                print("This is where help goes")
+            else:
+                self.make_move(user_input)
 
         return 0

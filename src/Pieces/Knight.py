@@ -11,7 +11,7 @@ class Knight(Piece):
         # add variables here
 
         if colour == 0:
-            self.board_ID = "[H]"
+            self.board_ID = "[N]"
         else:
-            self.board_ID = "[h]"
+            self.board_ID = "[n]"
 

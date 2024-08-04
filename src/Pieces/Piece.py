@@ -17,7 +17,7 @@ class Piece:
     def get_pos_y(self):
         return self.pos_y
 
-    def move_piece(self):
+    def move_piece(self, move):
         print("Moving piece...")
 
     def take_piece(self):
