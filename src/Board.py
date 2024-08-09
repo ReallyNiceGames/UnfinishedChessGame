@@ -26,14 +26,17 @@ class Board:
         self.black_pieces = []
         self.board_layout = []
 
-        self.default_layout = [["[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]"],
-                              ["[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]"],
-                              ["[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]"],
-                              ["[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]"],
-                              ["[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]"],
-                              ["[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]"],
-                              ["[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]"],
-                              ["[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]"]]
+        self.default_layout = [
+                              ["   ", " A ", " B ", " C ", " D ", " E ", " F ", " G ", " H "],
+                              [" 8 ", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]"],
+                              [" 7 ", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]"],
+                              [" 6 ", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]"],
+                              [" 5 ", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]"],
+                              [" 4 ", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]"],
+                              [" 3 ", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]"],
+                              [" 2 ", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]"],
+                              [" 1 ", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]"]
+        ]
 
         self.reset_board()
 
@@ -48,62 +51,62 @@ class Board:
 
         for x in range(self.max_pawns):
             self.white_pieces.append(Pawn(0))
-            self.board_layout[1][0 + x] = "[P]"
+            self.board_layout[2][1 + x] = "[P]"
             self.black_pieces.append(Pawn(1))
-            self.board_layout[6][0 + x] = "[p]"
+            self.board_layout[7][1 + x] = "[p]"
 
         for x in range(self.max_knights):
             self.white_pieces.append(Knight(0))
-            if self.board_layout[0][1] != "[N]":
-                self.board_layout[0][1] = "[N]"
+            if self.board_layout[1][2] != "[N]":
+                self.board_layout[1][2] = "[N]"
             else:
-                self.board_layout[0][6] = "[N]"
+                self.board_layout[1][7] = "[N]"
 
             self.black_pieces.append(Knight(1))
-            if self.board_layout[7][1] != "[n]":
-                self.board_layout[7][1] = "[n]"
+            if self.board_layout[8][2] != "[n]":
+                self.board_layout[8][2] = "[n]"
             else:
-                self.board_layout[7][6] = "[n]"
+                self.board_layout[8][7] = "[n]"
 
         for x in range(self.max_bishops):
             self.white_pieces.append(Bishop(0))
-            if self.board_layout[0][2] != "[B]":
-                self.board_layout[0][2] = "[B]"
+            if self.board_layout[1][3] != "[B]":
+                self.board_layout[1][3] = "[B]"
             else:
-                self.board_layout[0][5] = "[B]"
+                self.board_layout[1][6] = "[B]"
 
             self.black_pieces.append(Bishop(1))
-            if self.board_layout[7][2] != "[b]":
-                self.board_layout[7][2] = "[b]"
+            if self.board_layout[8][3] != "[b]":
+                self.board_layout[8][3] = "[b]"
             else:
-                self.board_layout[7][5] = "[b]"
+                self.board_layout[8][6] = "[b]"
 
         for x in range(self.max_rooks):
             self.white_pieces.append(Rook(0))
-            if self.board_layout[0][0] != "[R]":
-                self.board_layout[0][0] = "[R]"
+            if self.board_layout[1][1] != "[R]":
+                self.board_layout[1][1] = "[R]"
             else:
-                self.board_layout[0][7] = "[R]"
+                self.board_layout[1][8] = "[R]"
 
             self.black_pieces.append(Rook(1))
-            if self.board_layout[7][0] != "[r]":
-                self.board_layout[7][0] = "[r]"
+            if self.board_layout[8][1] != "[r]":
+                self.board_layout[8][1] = "[r]"
             else:
-                self.board_layout[7][7] = "[r]"
+                self.board_layout[8][8] = "[r]"
 
         for x in range(self.max_kings):
             self.white_pieces.append(King(0))
-            self.board_layout[0][4] = "[K]"
+            self.board_layout[1][5] = "[K]"
 
             self.black_pieces.append(King(1))
-            self.board_layout[7][4] = "[k]"
+            self.board_layout[8][5] = "[k]"
 
         for x in range(self.max_queens):
             self.white_pieces.append(Queen(0))
-            self.board_layout[0][3] = "[Q]"
+            self.board_layout[1][4] = "[Q]"
 
             self.black_pieces.append(Queen(1))
-            self.board_layout[7][3] = "[q]"
+            self.board_layout[8][4] = "[q]"
 
         print("There is", len(self.white_pieces), "white pieces in the list.")
         print("There is", len(self.black_pieces), "black pieces in the list.")
@@ -118,16 +121,43 @@ class Board:
 
         if self.white_turn:
             print("Flipping to White PoV")
+            z = False
             for x in range(len(self.board_layout)):
-                for y in range(len(self.board_layout[x])):
-                    print(self.board_layout[(len(self.board_layout) - 1) - x][(len(self.board_layout) - 1) - y], end="")
-                print()
+                # displays numbers 1 to 8 with a blank space in the corner
+                print(self.board_layout[x][0], end="")
+                if z:
+                    # displays the board spaces from white PoV
+                    for y in range(len(self.board_layout) - 1):
+                        print(self.board_layout[(len(self.board_layout) - 1) - (x - 1)]
+                              [(len(self.board_layout) - 1) - y], end="")
+                    print()
+                else:
+                    # displays letters A to H
+                    for y in range(len(self.board_layout) - 1):
+                        print(self.board_layout[0][y + 1], end="")
+                    print()
+                    z = True
         else:
             print("Flipping to Black PoV")
+            z = False
             for x in range(len(self.board_layout)):
-                for y in range(len(self.board_layout[x])):
-                    print(self.board_layout[x][y], end="")
-                print()
+                if z:
+                    # displays numbers 8 to 1
+                    print(self.board_layout[(len(self.board_layout)) - x][0], end="")
+
+                    # displays the board spaces from black PoV
+                    for y in range(len(self.board_layout) - 1):
+                        print(self.board_layout[x][y + 1], end="")
+                    print()
+                else:
+                    # displays the blank space in the corner of the board
+                    print(self.board_layout[x][0], end="")
+
+                    # displays letters H to A
+                    for y in range(len(self.board_layout) - 1):
+                        print(self.board_layout[0][len(self.board_layout) - (y + 1)], end="")
+                    print()
+                    z = True
 
     def change_turn(self):
 
@@ -146,6 +176,8 @@ class Board:
     def make_move(self, user_input):
 
         print("Moving based on input...")
+
+        self.change_turn()
 
         #inputs should be 4 letters/numbers, for example: b1c4
 
