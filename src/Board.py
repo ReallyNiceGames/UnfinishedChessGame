@@ -50,62 +50,68 @@ class Board:
         self.board_layout = self.default_layout
 
         for x in range(self.max_pawns):
-            self.white_pieces.append(Pawn(0))
+            self.white_pieces.append(Pawn(0, 2, 1 + x))
             self.board_layout[2][1 + x] = "[P]"
-            self.black_pieces.append(Pawn(1))
+            self.black_pieces.append(Pawn(1, 7, 1 + x))
             self.board_layout[7][1 + x] = "[p]"
 
         for x in range(self.max_knights):
-            self.white_pieces.append(Knight(0))
             if self.board_layout[1][2] != "[N]":
+                self.white_pieces.append(Knight(0, 1, 2))
                 self.board_layout[1][2] = "[N]"
             else:
+                self.white_pieces.append(Knight(0, 1, 7))
                 self.board_layout[1][7] = "[N]"
 
-            self.black_pieces.append(Knight(1))
             if self.board_layout[8][2] != "[n]":
+                self.black_pieces.append(Knight(1, 8, 2))
                 self.board_layout[8][2] = "[n]"
             else:
+                self.black_pieces.append(Knight(1, 8, 7))
                 self.board_layout[8][7] = "[n]"
 
         for x in range(self.max_bishops):
-            self.white_pieces.append(Bishop(0))
             if self.board_layout[1][3] != "[B]":
+                self.white_pieces.append(Bishop(0, 1, 3))
                 self.board_layout[1][3] = "[B]"
             else:
+                self.white_pieces.append(Bishop(0, 1, 6))
                 self.board_layout[1][6] = "[B]"
 
-            self.black_pieces.append(Bishop(1))
             if self.board_layout[8][3] != "[b]":
+                self.black_pieces.append(Bishop(1, 8, 3))
                 self.board_layout[8][3] = "[b]"
             else:
+                self.black_pieces.append(Bishop(1, 8, 6))
                 self.board_layout[8][6] = "[b]"
 
         for x in range(self.max_rooks):
-            self.white_pieces.append(Rook(0))
             if self.board_layout[1][1] != "[R]":
+                self.white_pieces.append(Rook(0, 1, 1))
                 self.board_layout[1][1] = "[R]"
             else:
+                self.white_pieces.append(Rook(0, 1, 8))
                 self.board_layout[1][8] = "[R]"
 
-            self.black_pieces.append(Rook(1))
             if self.board_layout[8][1] != "[r]":
+                self.black_pieces.append(Rook(1, 8, 1))
                 self.board_layout[8][1] = "[r]"
             else:
+                self.black_pieces.append(Rook(1, 8, 8))
                 self.board_layout[8][8] = "[r]"
 
         for x in range(self.max_kings):
-            self.white_pieces.append(King(0))
+            self.white_pieces.append(King(0, 1, 5))
             self.board_layout[1][5] = "[K]"
 
-            self.black_pieces.append(King(1))
+            self.black_pieces.append(King(1, 8, 5))
             self.board_layout[8][5] = "[k]"
 
         for x in range(self.max_queens):
-            self.white_pieces.append(Queen(0))
+            self.white_pieces.append(Queen(0, 1, 4))
             self.board_layout[1][4] = "[Q]"
 
-            self.black_pieces.append(Queen(1))
+            self.black_pieces.append(Queen(1, 8, 4))
             self.board_layout[8][4] = "[q]"
 
         print("There is", len(self.white_pieces), "white pieces in the list.")
@@ -196,5 +202,7 @@ class Board:
                 print("This is where help goes")
             else:
                 self.make_move(user_input)
+
+            #print(self.white_pieces[4].get_pos_x())
 
         return 0

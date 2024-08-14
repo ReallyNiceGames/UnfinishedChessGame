@@ -1,6 +1,6 @@
 class Piece:
 
-    def __init__(self, colour):
+    def __init__(self, colour, pos_x, pos_y):
         #print("The piece superclass has been called!")
         # add variables
 
@@ -8,14 +8,18 @@ class Piece:
             self.colour = "White"
         else:
             self.colour = "Black"
-        self.pos_x = 0
-        self.pos_y = 0
+        self.pos_x = pos_x
+        self.pos_y = pos_y
 
     def get_pos_x(self):
         return self.pos_x
 
     def get_pos_y(self):
         return self.pos_y
+
+    def set_pos(self, pos_x, pos_y):
+        self.pos_x = pos_x
+        self.pos_y = pos_y
 
     def move_piece(self, move):
         print("Moving piece...")

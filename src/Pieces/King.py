@@ -3,10 +3,10 @@ from src.Pieces.Piece import *
 
 class King(Piece):
 
-    def __init__(self, colour):
+    def __init__(self, colour, pos_x, pos_y):
 
         print("This is a king!")
-        super().__init__(colour)
+        super().__init__(colour, pos_x, pos_y)
 
         # add variables here
 
