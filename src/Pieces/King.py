@@ -14,3 +14,11 @@ class King(Piece):
             self.board_ID = "[K]"
         else:
             self.board_ID = "[k]"
+
+        self.in_check = False
+
+    def set_check(self, in_check):
+        self.in_check = in_check
+
+    def get_check(self):
+        return self.in_check

@@ -121,12 +121,12 @@ class Board:
 
     def update_board(self):
 
-        print("Updating board layout...")
+        #print("Updating board layout...")
 
         # re-displays the board
 
         if self.white_turn:
-            print("Flipping to White PoV")
+            #print("Flipping to White PoV")
             z = False
             for x in range(len(self.board_layout)):
                 # displays numbers 1 to 8 with a blank space in the corner
@@ -144,7 +144,7 @@ class Board:
                     print()
                     z = True
         else:
-            print("Flipping to Black PoV")
+            #print("Flipping to Black PoV")
             z = False
             for x in range(len(self.board_layout)):
                 if z:
@@ -167,23 +167,39 @@ class Board:
 
     def change_turn(self):
 
-        print("Deciding who's turn it is...")
+        #print("Deciding who's turn it is...")
 
         # swapping the turn
         self.white_turn = not self.white_turn
 
-        if self.white_turn:
-            print("It's white's turn!")
-        else:
-            print("It's black's turn!")
+        #if self.white_turn:
+            #print("It's white's turn!")
+        #else:
+            #print("It's black's turn!")
 
         self.update_board()
 
     def make_move(self, user_input):
 
-        print("Moving based on input...")
+        #print("Moving based on input...")
 
-        self.change_turn()
+        # checks input is correct length and splits it into 2 board locations - where from and where to
+        if len(user_input) == 4:
+            split_input = list(user_input)
+
+            # verifies that the input follows the correct format, for example: b1c4
+            if isinstance(split_input[0], str) and split_input[1].isnumeric() and isinstance(split_input[2], str) and split_input[3].isnumeric():
+                from_loc = split_input[0] + split_input[1]
+                to_loc = split_input[2] + split_input[3]
+                print("Coming from... " + from_loc + "!")
+                print("Going to... " + to_loc + "!")
+                self.change_turn()
+            else:
+                print("Incorrect input format")
+        else:
+            print("Incorrect input length")
+
+
 
         #inputs should be 4 letters/numbers, for example: b1c4
 
