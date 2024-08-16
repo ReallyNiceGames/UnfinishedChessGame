@@ -27,15 +27,21 @@ class Board:
         self.board_layout = []
 
         self.default_layout = [
-                              ["   ", " A ", " B ", " C ", " D ", " E ", " F ", " G ", " H "],
-                              [" 8 ", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]"],
-                              [" 7 ", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]"],
-                              [" 6 ", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]"],
-                              [" 5 ", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]"],
-                              [" 4 ", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]"],
-                              [" 3 ", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]"],
-                              [" 2 ", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]"],
-                              [" 1 ", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]"]
+            ["   ", " A ", " B ", " C ", " D ", " E ", " F ", " G ", " H "],
+            [" 8 ", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]"],
+            [" 7 ", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]"],
+            [" 6 ", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]"],
+            [" 5 ", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]"],
+            [" 4 ", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]"],
+            [" 3 ", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]"],
+            [" 2 ", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]"],
+            [" 1 ", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]"]
+        ]
+
+        self.position_index = [
+            ["A", "B", "C", "D", "E", "F", "G", "H"],
+            ["8", "7", "6", "5", "4", "3", "2", "1"],
+            [1, 2, 3, 4, 5, 6, 7, 8]
         ]
 
         self.reset_board()
@@ -179,23 +185,38 @@ class Board:
 
         self.update_board()
 
+    def translate_input(self, user_input):
+
+        print("Translating input to actual board list values...")
+
+        updated_input = [0, 0, 0, 0]
+
+        # changes the user input to the corresponding positional value on the board
+        updated_input[0] = self.position_index[2][self.position_index[1].index(user_input[1])]
+        updated_input[1] = self.position_index[2][self.position_index[0].index(user_input[0])]
+        updated_input[2] = self.position_index[2][self.position_index[1].index(user_input[3])]
+        updated_input[3] = self.position_index[2][self.position_index[0].index(user_input[2])]
+
+        return updated_input
+
     def make_move(self, user_input):
 
         #print("Moving based on input...")
 
         # checks input is correct length and splits it into 2 board locations - where from and where to
         if len(user_input) == 4:
-            split_input = list(user_input)
+            user_input = list(user_input)
 
             # verifies that the input follows the correct format, for example: b1c4
-            if isinstance(split_input[0], str) and split_input[1].isnumeric() and isinstance(split_input[2], str) and split_input[3].isnumeric():
-                from_loc = split_input[0] + split_input[1]
-                to_loc = split_input[2] + split_input[3]
-                print("Coming from... " + from_loc + "!")
-                print("Going to... " + to_loc + "!")
+            #if isinstance(split_input[0], str) and split_input[1].isnumeric() and isinstance(split_input[2], str) and split_input[3].isnumeric():
+            if (user_input[0] in self.position_index[0] and user_input[1] in self.position_index[1] and
+                    user_input[2] in self.position_index[0] and user_input[3] in self.position_index[1]):
+                user_input = self.translate_input(user_input)
+                print("Coming from... " + str(user_input[0]) + ", " + str(user_input[1]) + "!")
+                print("Going to... " + str(user_input[2]) + ", " + str(user_input[3]) + "!")
                 self.change_turn()
             else:
-                print("Incorrect input format")
+                print("Location does not exist on the board")
         else:
             print("Incorrect input length")
 
@@ -210,7 +231,9 @@ class Board:
 
         # while game is going, loop
         while True:
-            user_input = input("Please input a move. Input: ")
+            user_input = input("Please input a move. Input: ").upper()
+
+            print(user_input)
 
             if user_input == "exit":
                 break
