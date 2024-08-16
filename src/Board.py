@@ -185,6 +185,23 @@ class Board:
 
         self.update_board()
 
+    def validate_input(self, user_input):
+
+        # checks input is correct length and splits it into 2 board locations - where from and where to
+        if len(user_input) == 4:
+            user_input = list(user_input)
+
+            # verifies that the input follows the correct format, for example: b1c4
+            if (user_input[0] in self.position_index[0] and user_input[1] in self.position_index[1] and
+                    user_input[2] in self.position_index[0] and user_input[3] in self.position_index[1]):
+                return True
+            else:
+                print("Location does not exist on the board")
+                return False
+        else:
+            print("Incorrect input length")
+            return False
+
     def translate_input(self, user_input):
 
         print("Translating input to actual board list values...")
@@ -199,49 +216,36 @@ class Board:
 
         return updated_input
 
-    def make_move(self, user_input):
+    def move_piece(self, user_input):
 
-        #print("Moving based on input...")
+        # changes the input into workable index values for the board list
+        user_input = self.translate_input(list(user_input))
+        print("Coming from... " + str(user_input[0]) + ", " + str(user_input[1]) + "!")
+        print("Going to... " + str(user_input[2]) + ", " + str(user_input[3]) + "!")
 
-        # checks input is correct length and splits it into 2 board locations - where from and where to
-        if len(user_input) == 4:
-            user_input = list(user_input)
-
-            # verifies that the input follows the correct format, for example: b1c4
-            #if isinstance(split_input[0], str) and split_input[1].isnumeric() and isinstance(split_input[2], str) and split_input[3].isnumeric():
-            if (user_input[0] in self.position_index[0] and user_input[1] in self.position_index[1] and
-                    user_input[2] in self.position_index[0] and user_input[3] in self.position_index[1]):
-                user_input = self.translate_input(user_input)
-                print("Coming from... " + str(user_input[0]) + ", " + str(user_input[1]) + "!")
-                print("Going to... " + str(user_input[2]) + ", " + str(user_input[3]) + "!")
-                self.change_turn()
-            else:
-                print("Location does not exist on the board")
-        else:
-            print("Incorrect input length")
-
-
+        # change the turn to the opposite colour's turn
+        self.change_turn()
 
         #inputs should be 4 letters/numbers, for example: b1c4
-
         #take the code, break it down, find the piece on the initial space and activate its move function
         #send the move function the 2 last bits of the code to determine where it goes (if possible)
 
     def start_game(self):
 
+        play_game = True
+
         # while game is going, loop
-        while True:
+        while play_game:
             user_input = input("Please input a move. Input: ").upper()
 
-            print(user_input)
+            #print(user_input)
 
-            if user_input == "exit":
-                break
-            elif user_input == "help":
+            if user_input == "EXIT":
+                play_game = False
+            elif user_input == "HELP":
                 print("This is where help goes")
             else:
-                self.make_move(user_input)
-
-            #print(self.white_pieces[4].get_pos_x())
+                if self.validate_input(user_input):
+                    self.move_piece(user_input)
 
         return 0
